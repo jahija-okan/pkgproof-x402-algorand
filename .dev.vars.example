@@ -1,0 +1,10 @@
+# Secrets for local development (config vars go in wrangler.jsonc).
+# Copy this file to .dev.vars and fill in your values; .dev.vars is gitignored.
+
+# Shared secret the origin requires as X-Origin-Secret. Without it, every
+# request is refused. Set in production with `wrangler secret bulk`.
+ORIGIN_SECRET=
+
+# No facilitator credentials needed: GoPlausible authenticates nothing and
+# settles Algorand Mainnet and Testnet from one URL.
+#   curl -s 'https://facilitator.goplausible.xyz/supported?format=json'

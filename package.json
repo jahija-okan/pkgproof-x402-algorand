@@ -1,0 +1,42 @@
+{
+	"name": "pkgproof-x402-algorand",
+	"version": "1.0.0",
+	"description": "x402 payment gate for pkgproof: USDC on Algorand Mainnet via the GoPlausible facilitator",
+	"private": true,
+	"type": "module",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/jahija-okan/pkgproof-x402-algorand"
+	},
+	"scripts": {
+		"cf-typegen": "wrangler types --env-interface CloudflareBindings",
+		"deploy": "wrangler deploy --minify",
+		"dev": "wrangler dev",
+		"format": "prettier --write .",
+		"format:check": "prettier --check .",
+		"lint": "npm run typecheck && npm run format:check && eslint .",
+		"lint:fix": "prettier --write . && eslint . --fix",
+		"typecheck": "tsc --noEmit",
+		"test:algo": "tsx test-algo.ts",
+		"account": "tsx algo-account.ts"
+	},
+	"dependencies": {
+		"@x402/avm": "^2.23.0",
+		"@x402/core": "2.23.0",
+		"@x402/extensions": "2.23.0",
+		"@x402/hono": "2.23.0",
+		"hono": "4.13.2"
+	},
+	"devDependencies": {
+		"@types/node": "^26.1.2",
+		"@typescript-eslint/eslint-plugin": "8.50.0",
+		"@typescript-eslint/parser": "8.50.0",
+		"algosdk": "^3.7.0",
+		"eslint": "9.39.2",
+		"eslint-config-prettier": "10.1.8",
+		"prettier": "3.7.4",
+		"tsx": "4.21.0",
+		"wrangler": "4.88.0"
+	}
+}

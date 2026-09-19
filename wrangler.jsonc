@@ -1,0 +1,54 @@
+/**
+ * x402 payment gate for pkgproof: Algorand rail. Settles USDC on Algorand
+ * Mainnet through the GoPlausible facilitator.
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "pkgproof-x402-algo",
+	"main": "src/index.ts",
+	"compatibility_date": "2025-10-08",
+
+	// Needed by @x402/avm's algokit-utils dependency.
+	"compatibility_flags": ["nodejs_compat"],
+	"observability": {
+		"enabled": true,
+	},
+
+	// Custom Domain: Cloudflare provisions the DNS record and certificate.
+	// Only the Cloudflare account that owns the pkgproof.net zone can deploy
+	// this route — see README.md, "Security model".
+	"routes": [
+		{
+			"pattern": "x402-algo.pkgproof.net",
+			"custom_domain": true,
+		},
+	],
+
+	"workers_dev": false,
+	"preview_urls": false,
+
+	"vars": {
+		// Receive-only Mainnet address; the private key is never in this repo.
+		// Must not change for the length of the Global x402 Challenge — the
+		// leaderboard attributes settled volume to this address.
+		"PAY_TO": "NE3HBSH4MZLCJ3G5UPYBTIHGRCQ5M7K5N2ROWCBK6EQFR62FEROLBVQTTQ",
+
+		// Algorand Mainnet, in the genesis-hash form the facilitator advertises.
+		"NETWORK": "algorand:wGHE2Pwdvd7S12BL5FaOP20EGYesN73ktiC1qzkkit8=",
+
+		"PROTECTED_PATTERNS": [
+			{
+				"pattern": "/v1/verify",
+				"price": "$0.05",
+				"description": "Verify one npm package before install: eight checks covering advisories, install scripts, typosquat names and repository provenance. Answers safe, caution, block or does_not_exist, each reason sourced.",
+			},
+		],
+
+		// The closed-source verification backend, reached over its public hostname.
+		"ORIGIN_URL": "https://pkgproof.net",
+
+		// The only facilitator the Global x402 Challenge leaderboard reads.
+		"FACILITATOR_URL": "https://facilitator.goplausible.xyz",
+	},
+	"upload_source_maps": true,
+}

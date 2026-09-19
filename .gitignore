@@ -1,0 +1,22 @@
+# Private notes and full reasoning behind this code — see docs/README.md
+/docs/
+
+# deps
+node_modules/
+.wrangler/
+
+# build
+dist/
+
+# env
+.env
+.env.production
+.dev.vars*
+!.dev.vars.example
+
+# `wrangler secret bulk` input; holds real credentials in plaintext
+secrets.json
+
+# logs / misc
+*.log
+.DS_Store
